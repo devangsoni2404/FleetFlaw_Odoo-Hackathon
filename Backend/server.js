@@ -2,6 +2,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import './configs/db.js';
 import roleRouter from './routes/role.route.js';
+import shipmentRouter from './routes/shipment.route.js';
+import tripRouter from './routes/trip.route.js';
+import expenseRouter from './routes/expense.route.js';
+import userRouter from './routes/user.route.js';
 
 dotenv.config();
 
@@ -26,6 +30,10 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/api/roles', roleRouter);
+app.use('/api/shipments', shipmentRouter);
+app.use('/api/trips', tripRouter);
+app.use('/api/expenses', expenseRouter);
+app.use('/api/auth', userRouter);
 
 app.use((req, res) => {
   res.status(404).json({
