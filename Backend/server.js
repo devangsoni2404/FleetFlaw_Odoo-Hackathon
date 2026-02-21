@@ -1,5 +1,6 @@
 import express from 'express';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
+import pool from './configs/db.js';
 
 dotenv.config();
 const app = express();
@@ -11,14 +12,6 @@ app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Server is running',
-  });
-});
-
-app.get('/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
   });
 });
 
@@ -38,5 +31,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`Server listening running on http://localhost:${PORT}`);
 });
