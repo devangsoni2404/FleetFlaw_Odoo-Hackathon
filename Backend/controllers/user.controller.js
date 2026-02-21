@@ -156,6 +156,54 @@ export const editUser = async (req, res) => {
   }
 };
 
+export const editMyProfile = async (req, res) => {
+  try {
+    const userId = parseId(req.user?.user_id);
+    if (Number.isNaN(userId)) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const { full_name, email, password } = req.body;
+
+    if (req.body.role_id !== undefined || req.body.is_active !== undefined) {
+      return res.status(403).json({
+        success: false,
+        message: 'You cannot update role_id or is_active from this endpoint',
+      });
+    }
+
+    if (full_name === undefined && email === undefined && password === undefined) {
+      return res.status(400).json({ success: false, message: 'No update fields provided' });
+    }
+
+    if (email !== undefined) {
+      if (!isValidEmail(email)) {
+        return res.status(400).json({ success: false, message: 'Invalid email format' });
+      }
+      const existingUser = await getUserByEmail(email, true);
+      if (existingUser && existingUser.user_id !== userId) {
+        return res.status(409).json({ success: false, message: 'Email already exists' });
+      }
+    }
+
+    const user = await updateUser({
+      userId,
+      fullName: full_name,
+      email,
+      passwordHash: password !== undefined ? hashPassword(password) : undefined,
+      actorId: userId,
+    });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found or deleted' });
+    }
+
+    return res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 export const deleteUser = async (req, res) => {
   try {
     const userId = parseId(req.params.userId);
