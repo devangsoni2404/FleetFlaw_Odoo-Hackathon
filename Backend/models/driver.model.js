@@ -258,7 +258,7 @@ export const softDeleteDriver = async ({ driverId, actorId }) => {
      SET is_deleted = 1, updated_by = ?, updated_at = CURRENT_TIMESTAMP
      WHERE driver_id = ? AND is_deleted = 0`,
     [actorId ?? null, driverId]
-  );
+    );
 
   return result.affectedRows > 0;
 };
