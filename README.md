@@ -3,6 +3,12 @@
 > **Odoo Hackathon Project** — A centralized, rule-based digital hub that replaces manual logbooks to optimize fleet lifecycle, monitor driver safety, and track financial performance.
 
 ---
+## Video Link
+
+https://drive.google.com/drive/folders/1vBK61l1OtHTahUToMtojXWds97Df1aSZ?usp=drive_link
+
+---
+
 
 ## 👥 Target Users
 
