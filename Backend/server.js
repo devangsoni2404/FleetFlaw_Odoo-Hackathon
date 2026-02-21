@@ -36,11 +36,13 @@ app.get("/health", (req, res) => {
   });
 });
 
+
 app.use('/api/roles', roleRouter);
 app.use('/api/shipments', shipmentRouter);
 app.use('/api/trips', tripRouter);
 app.use('/api/expenses', expenseRouter);
 app.use('/api/auth', userRouter);
+
 // ── Teammates' routes ───────────────────────────────────────────────
 app.use("/api/roles", roleRouter);
 app.use("/api/users", userRouter);
