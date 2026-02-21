@@ -1,6 +1,12 @@
-node_modules/
+# Env files
 .env
-.github/workflows/
-# Auto-generated commented schema (for learning/documentation only)
-BACKEND/seeders/db_schema_commented.sql
-.vscode
+*.env
+!.env.example
+
+# Node
+node_modules/
+**/node_modules/
+npm-debug.log*
+
+# OS/editor
+.DS_Store
