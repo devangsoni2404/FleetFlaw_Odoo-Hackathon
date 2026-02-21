@@ -1,21 +1,22 @@
 {
-  "name": "backend",
+  "name": "fleetflow-backend",
   "version": "1.0.0",
-  "description": "hackathon project",
+  "description": "FleetFlow – Modular Fleet & Logistics Management System Backend",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "crypto": "^1.0.1",
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.17.4",
-    "nodemon": "^3.1.14"
+    "mysql2": "^3.11.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
