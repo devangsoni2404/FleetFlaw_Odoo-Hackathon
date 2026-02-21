@@ -309,4 +309,5 @@ export const softDeleteDriver = async ({ driverId, actorId }) => {
   return result.affectedRows > 0;
 };
 
+export { DRIVER_STATUSES, LICENSE_TYPES };
 
