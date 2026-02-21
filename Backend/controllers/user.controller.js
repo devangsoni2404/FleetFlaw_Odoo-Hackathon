@@ -253,12 +253,7 @@ export const loginUser = async (req, res) => {
     }
 
     const user = await getUserByEmail(email, false);
-    if (!user || !user.is_active || user.is_deleted) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
-    }
-
-    const validPassword = verifyPassword(password, user.password_hash);
-    if (!validPassword) {
+    if (!user || !user.is_active || user.is_deleted || !verifyPassword(password, user.password_hash)) {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
