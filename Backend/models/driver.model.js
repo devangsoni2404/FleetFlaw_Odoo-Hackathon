@@ -263,4 +263,14 @@ export const softDeleteDriver = async ({ driverId, actorId }) => {
   return result.affectedRows > 0;
 };
 
+export const logDriverStatus = async ({ driverId, status, changedReason, actorId }) => {
+  const [result] = await db.execute(
+    `INSERT INTO driver_status_logs (driver_id, status, changed_reason, created_by)
+     VALUES (?, ?, ?, ?)`,
+    [driverId, status, changedReason, actorId ?? null]
+  );
+
+  return result.insertId;
+};
+
 export { DRIVER_STATUSES, LICENSE_TYPES };
