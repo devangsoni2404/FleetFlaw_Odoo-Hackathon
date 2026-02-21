@@ -189,6 +189,16 @@ export const updateVehicleStatus = async ({ vehicleId, status, actorId }) => {
   return getVehicleById(vehicleId, true);
 };
 
+export const logVehicleStatus = async ({ vehicleId, status, changedReason, actorId }) => {
+  const [result] = await db.execute(
+    `INSERT INTO vehicle_status_logs (vehicle_id, status, changed_reason, created_by)
+     VALUES (?, ?, ?, ?)`,
+    [vehicleId, status, changedReason, actorId ?? null]
+  );
+
+  return result.insertId;
+};
+
 export const softDeleteVehicle = async ({ vehicleId, actorId }) => {
   const [result] = await db.execute(
     `UPDATE vehicles

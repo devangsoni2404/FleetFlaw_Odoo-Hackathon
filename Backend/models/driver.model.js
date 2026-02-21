@@ -215,6 +215,17 @@ export const updateDriverStatus = async ({ driverId, status, actorId }) => {
   return getDriverById(driverId, true);
 };
 
+export const incrementDriverTrips = async (driverId) => {
+  const [result] = await db.execute(
+    `UPDATE drivers
+     SET total_trips = total_trips + 1
+     WHERE driver_id = ? AND is_deleted = 0`,
+    [driverId]
+  );
+
+  return result.affectedRows > 0;
+};
+
 export const getExpiredDrivers = async () => {
   const [rows] = await db.execute(
     `${selectColumns}
