@@ -36,16 +36,11 @@ app.get("/health", (req, res) => {
   });
 });
 
-<<<<<<< HEAD
-app.use('/api/roles', roleRouter);
 app.use('/api/shipments', shipmentRouter);
 app.use('/api/trips', tripRouter);
 app.use('/api/expenses', expenseRouter);
 app.use('/api/auth', userRouter);
-=======
 // ── Teammates' routes ───────────────────────────────────────────────
->>>>>>> e42f8fc4436ca79cecd1e95dcdfa77b5f937f760
-app.use("/api/roles", roleRouter);
 app.use("/api/users", userRouter);
 app.use("/api/drivers", driverRouter);
 app.use("/api/vehicles", vehicleRouter);
