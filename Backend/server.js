@@ -3,6 +3,10 @@ import dotenv from "dotenv";
 import "./configs/db.js";
 import roleRouter from "./routes/role.route.js";
 import userRouter from "./routes/user.route.js";
+import maintenanceLogs from "./routes/maintenanceLog.route.js";
+import fuelLogs from "./routes/fuelLog.route.js";
+import driverStatusLogs from "./routes/driverStatusLog.route.js";
+import vehicleStatusLogs from "./routes/vehicleStatusLog.route.js";
 
 dotenv.config();
 
@@ -28,6 +32,10 @@ app.get("/health", (req, res) => {
 
 app.use("/api/roles", roleRouter);
 app.use("/api/users", userRouter);
+app.use("/api/maintenance-logs", maintenanceLogs);
+app.use("/api/fuel-logs", fuelLogs);
+app.use("/api/driver-status-logs", driverStatusLogs);
+app.use("/api/vehicle-status-logs", vehicleStatusLogs);
 
 app.use((req, res) => {
   res.status(404).json({
