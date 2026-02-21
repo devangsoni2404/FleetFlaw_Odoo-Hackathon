@@ -1,10 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import pool from './configs/db.js';
+import './configs/db.js';
+import roleRouter from './routes/role.route.js';
 
 dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = Number.parseInt(process.env.SERVER_PORT, 10) || Number.parseInt(process.env.PORT, 10) || 3000;
 
 app.use(express.json());
 
@@ -14,6 +16,16 @@ app.get('/', (req, res) => {
     message: 'Server is running',
   });
 });
+
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.use('/api/roles', roleRouter);
 
 app.use((req, res) => {
   res.status(404).json({
@@ -31,5 +43,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server listening running on http://localhost:${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
