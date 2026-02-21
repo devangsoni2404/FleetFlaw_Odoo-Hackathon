@@ -9,6 +9,10 @@ import userRouter from './routes/user.route.js';
 import driverRouter from "./routes/driver.route.js";
 import vehicleRouter from "./routes/vehicle.route.js";
 import safetyRouter from "./routes/safety.route.js";
+import maintenanceLogs from "./routes/maintenanceLog.route.js";
+import fuelLogs from "./routes/fuelLog.route.js";
+import driverStatusLogs from "./routes/driverStatusLog.route.js";
+import vehicleStatusLogs from "./routes/vehicleStatusLog.route.js";
 
 dotenv.config();
 
@@ -37,11 +41,18 @@ app.use('/api/shipments', shipmentRouter);
 app.use('/api/trips', tripRouter);
 app.use('/api/expenses', expenseRouter);
 app.use('/api/auth', userRouter);
+// ── Teammates' routes ───────────────────────────────────────────────
 app.use("/api/roles", roleRouter);
 app.use("/api/users", userRouter);
 app.use("/api/drivers", driverRouter);
 app.use("/api/vehicles", vehicleRouter);
 app.use("/api/safety", safetyRouter);
+
+// ── Your log module routes ──────────────────────────────────────────
+app.use("/api/maintenance-logs", maintenanceLogs);
+app.use("/api/fuel-logs", fuelLogs);
+app.use("/api/driver-status-logs", driverStatusLogs);
+app.use("/api/vehicle-status-logs", vehicleStatusLogs);
 
 app.use((req, res) => {
   res.status(404).json({

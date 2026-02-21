@@ -215,6 +215,52 @@ export const updateDriverStatus = async ({ driverId, status, actorId }) => {
   return getDriverById(driverId, true);
 };
 
+export const logDriverStatus = async ({
+  driverId,
+  status,
+  changedReason,
+  actorId,
+  tripId = null,
+  previousStatus = null,
+  remarks = null,
+  incidentType = null,
+  incidentDescription = null,
+  safetyScoreBefore = null,
+  safetyScoreAfter = null,
+}) => {
+  const currentDriver = await getDriverById(driverId, true);
+  if (!currentDriver) {
+    return null;
+  }
+
+  const resolvedPreviousStatus = previousStatus ?? currentDriver.status;
+  const resolvedReason = changedReason ?? 'Other';
+
+  const [result] = await db.execute(
+    `INSERT INTO driver_status_logs (
+      driver_id, trip_id, previous_status, new_status, changed_reason,
+      remarks, incident_type, incident_description, safety_score_before, safety_score_after,
+      created_by, updated_by, is_deleted
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`,
+    [
+      driverId,
+      tripId,
+      resolvedPreviousStatus,
+      status,
+      resolvedReason,
+      remarks,
+      incidentType,
+      incidentDescription,
+      safetyScoreBefore,
+      safetyScoreAfter,
+      actorId ?? null,
+      actorId ?? null,
+    ]
+  );
+
+  return result.insertId;
+};
+
 export const incrementDriverTrips = async (driverId) => {
   const [result] = await db.execute(
     `UPDATE drivers
